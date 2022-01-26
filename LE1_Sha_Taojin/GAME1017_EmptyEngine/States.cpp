@@ -109,6 +109,13 @@ void GameState::Update()
 		cout << "changing to pauseState" << endl;
 		STMA::PushState(new PauseState);
 	}
+	
+	if (Engine::Instance().KeyDown(SDL_SCANCODE_X))
+	{
+		cout << "changing to game state" << endl;
+		STMA::ChangeState(new EndState);
+	}
+	
 	//pause 'x' and change state to end state.
 	//push key 1 to play sound 1
 	// push key 1 to play sound 2
@@ -134,4 +141,38 @@ void GameState::Resume()
 {
 	cout << "resuming gamestate----->" << endl;
 	//resum music track
+}
+
+
+/// <summary>
+/// ////////////////////
+/// </summary>
+/// 
+
+EndState::EndState()
+{
+
+}
+
+void EndState::Enter()
+{
+	cout << "Enter endState --> " << endl;
+}
+void EndState::Update()
+{
+	if (Engine::Instance().KeyDown(SDL_SCANCODE_R))
+	{
+		cout << "changing to game state" << endl;
+		STMA::ChangeState(new TitleState);
+	}
+}
+void EndState::Render()
+{
+	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 255, 0, 255, 255);
+	SDL_RenderClear(Engine::Instance().GetRenderer());
+	State::Render();
+}
+void EndState::Exit()
+{
+	cout << "exit end state----->" << endl;
 }
