@@ -1,6 +1,7 @@
 #pragma once
 #ifndef _STATES_H_
 #define _STATES_H_
+#include <SDL_mixer.h>
 
 class State
 {
@@ -43,6 +44,9 @@ public:
 class GameState : public State
 {
 private:
+
+	Mix_Music* m_pMusic;
+	Mix_Chunk* m_pSounds;
 	//map for music track
 //map for sfx
 

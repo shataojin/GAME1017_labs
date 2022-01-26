@@ -5,6 +5,8 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
+
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
@@ -21,7 +23,8 @@ private: // private properties.
 	const Uint8* m_keystates;
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
-
+	Mix_Music* m_pMusic;
+	Mix_Chunk* m_pSounds;
 private: // private method prototypes.
 
 	Engine()

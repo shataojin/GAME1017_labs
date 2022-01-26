@@ -41,6 +41,7 @@ void TitleState::Exit()
 {
 	cout << "exit title state----->" << endl;
 	//call mix_freeMusic on track
+	
 }
 
 
@@ -97,6 +98,8 @@ void GameState::Enter()
 {
 	cout << "Enter GameState --> " << endl;
 	//load music track and music sfx , add it to map, and  play
+	m_pMusic = Mix_LoadMUS("Aud/????.mp3");
+	m_pSounds = Mix_LoadWAV("Aud/>>>>.wav");
 }
 
 void GameState::Update()
@@ -106,9 +109,11 @@ void GameState::Update()
 		cout << "changing to pauseState" << endl;
 		STMA::PushState(new PauseState);
 	}
-	//pause 'x' and change state to nes end state.
+	//pause 'x' and change state to end state.
 	//push key 1 to play sound 1
 	// push key 1 to play sound 2
+
+	
 }
 
 void GameState::Render()

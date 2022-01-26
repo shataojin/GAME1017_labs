@@ -18,6 +18,13 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 				// Initialize subsystems...
 				if (IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) != 0)
 				{
+					if (Mix_Init(MIX_INIT_MP3) != 0) 
+					{
+						Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 2048); // Good for most games.
+						Mix_AllocateChannels(16);
+						m_pMusic = Mix_LoadMUS("Aud/????.mp3");
+						m_pSounds = Mix_LoadWAV("Aud/>>>>.wav");
+					}
 					// Do something here.
 				}
 				else return false; // Image init failed.
