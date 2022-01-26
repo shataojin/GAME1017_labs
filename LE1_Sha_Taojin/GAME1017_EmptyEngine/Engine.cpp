@@ -21,6 +21,8 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 					// Do something here.
 				}
 				else return false; // Image init failed.
+
+				// Intialize mixer subsystem
 			}
 			else return false; // Renderer creation failed.
 		}
@@ -29,6 +31,7 @@ int Engine::Init(const char* title, int xPos, int yPos, int width, int height, i
 	else return false; // initalization failed.
 	m_fps = (Uint32)round(1.0 / (double)FPS * 1000); // Converts FPS into milliseconds, e.g. 16.67
 	m_keystates = SDL_GetKeyboardState(nullptr);
+	STMA::ChangeState(new  TitleState());
 	cout << "Initialization successful!" << endl;
 	m_running = true;
 	return true;
@@ -70,7 +73,7 @@ void Engine::Update()
 
 void Engine::Render()
 {
-	
+	STMA::Render();
 }
 
 void Engine::Sleep()
@@ -116,8 +119,11 @@ int Engine::Run()
 void Engine::Clean()
 {
 	cout << "Cleaning engine..." << endl;
+	STMA::Quit();
 	SDL_DestroyRenderer(m_pRenderer);
 	SDL_DestroyWindow(m_pWindow);
+	//invoke mix_closeAudio();
+	//invoke mix_quit();
 	IMG_Quit();
 	SDL_Quit();
 }

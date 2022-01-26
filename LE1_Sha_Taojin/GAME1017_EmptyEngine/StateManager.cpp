@@ -14,8 +14,11 @@ void StateManager::Render()
 
 void StateManager::PushState(State* pState)
 {
-	if (!s_states.empty())
-		s_states.back()->Render();
+	//if (!s_states.empty())
+		//s_states.back()->Render();
+
+	s_states.push_back(pState);
+	s_states.back()->Enter();
 }
 
 void StateManager::PopState()
@@ -55,10 +58,7 @@ void StateManager::Quit()
 	}
 }
 
-std::vector<State*>& StateManager::GetStates()
-{
-	return s_states;
-}
+std::vector<State*>& StateManager::GetStates(){return s_states;}
 
 std::vector<State*> StateManager::s_states;
 

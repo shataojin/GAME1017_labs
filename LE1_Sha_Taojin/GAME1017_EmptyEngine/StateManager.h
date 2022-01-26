@@ -11,11 +11,7 @@ class StateManager
 {
 private:
 	static std::vector<State*> s_states;
-private:
-	StateManager()
-	{
-		
-	}
+
 
 public:
 	static void Update();
@@ -25,9 +21,13 @@ public:
 	static void ChangeState(State* pstate);
 	static void Quit();
 	static  std::vector<State*>& GetStates();
+
+private:
+	StateManager() = default;
 };
 
 typedef StateManager STMA;
+
 
 #endif
 
