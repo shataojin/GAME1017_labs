@@ -20,7 +20,8 @@ public:
 class TitleState: public State
 {
 private:
-
+	
+	Mix_Music* m_pMusic;
 public:
 	TitleState();
 	virtual void Enter() ;
@@ -46,7 +47,8 @@ class GameState : public State
 private:
 
 	Mix_Music* m_pMusic;
-	Mix_Chunk* m_pSounds;
+	Mix_Chunk* m_pSounds_1;
+	Mix_Chunk* m_pSounds_2;
 	//map for music track
 //map for sfx
 

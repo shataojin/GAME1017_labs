@@ -19,6 +19,8 @@ void TitleState::Enter()
 {
 	cout << "Enter Title State --> " << endl;
 	//load music track, add it to map, and  play
+	m_pMusic = Mix_LoadMUS("Aud/Turtles.mp3");
+	Mix_PlayMusic(m_pMusic, -1); 
 }
 
 void TitleState::Update()
@@ -57,6 +59,7 @@ PauseState::PauseState()
 void PauseState::Enter()
 {
 	cout << "Enter pauseState --> " << endl;
+	
 }
 
 void PauseState::Update()
@@ -98,8 +101,10 @@ void GameState::Enter()
 {
 	cout << "Enter GameState --> " << endl;
 	//load music track and music sfx , add it to map, and  play
-	m_pMusic = Mix_LoadMUS("Aud/????.mp3");
-	m_pSounds = Mix_LoadWAV("Aud/>>>>.wav");
+	m_pMusic = Mix_LoadMUS("Aud/Turtles.mp3");
+	m_pSounds_1 = Mix_LoadWAV("Aud/boom.wav");
+	m_pSounds_2 = Mix_LoadWAV("Aud/jump.wav");
+	Mix_PlayMusic(m_pMusic, -1);
 }
 
 void GameState::Update()
@@ -115,7 +120,18 @@ void GameState::Update()
 		cout << "changing to game state" << endl;
 		STMA::ChangeState(new EndState);
 	}
-	
+
+	if (Engine::Instance().KeyDown(SDL_SCANCODE_1))
+	{
+		cout << "playing sound 1" << endl;
+		Mix_PlayChannel(-1, m_pSounds_1, 0);
+	}
+
+	if (Engine::Instance().KeyDown(SDL_SCANCODE_2))
+	{
+		cout << "playing sound 2" << endl;
+		Mix_PlayChannel(-1, m_pSounds_2, 0);
+	}
 	//pause 'x' and change state to end state.
 	//push key 1 to play sound 1
 	// push key 1 to play sound 2
