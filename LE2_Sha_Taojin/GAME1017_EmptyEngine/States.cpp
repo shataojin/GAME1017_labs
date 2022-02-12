@@ -142,7 +142,7 @@ void GameState::Update()
 	{
 		ClearTurrets();
 	}
-	if (m_spawnCtr++ % 180 == 0)
+	if (m_spawnCtr++ % 600 == 0)
 		s_enemies.push_back(new Enemy({ rand() % (1024 - 40), -57, 40, 57 }));
 
 
@@ -150,9 +150,23 @@ void GameState::Update()
 	for (unsigned i = 0; i < m_turrets.size(); i++)
 		m_turrets[i]->Update();
 	for (unsigned i = 0; i < s_enemies.size(); i++)
+	{
 		s_enemies[i]->Update();
+		SDL_Point ePos = s_enemies[i]->GetPos();
+		//cout << ePos.y << endl;
+		if(ePos.y>HEIGHT)
+		{
+			delete s_enemies[i];
+			s_enemies[i] = nullptr;
+			s_enemies[i]=(new Enemy({ rand() % (1024 - 40), -57, 40, 57 }));
+			cout << ePos.y << endl;
+		}
+	}
 	for (unsigned i = 0; i < s_bullets.size(); i++)
+	{
 		s_bullets[i]->Update();
+		//SDL_Point bPos = s_bullets[i];
+	}
 
 
 
@@ -276,14 +290,7 @@ void GameState::Update()
 	
 }
 
-void GameState::CheckCollision()
-{
-	/*,for (unsigned i = 0; i < s_enemies.size(); i++)
-	{
-		if()
-	}*/
-		
-}
+
 
 
 void GameState::Render()
