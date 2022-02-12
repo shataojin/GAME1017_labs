@@ -1,0 +1,4 @@
+<Root>
+  <GameObject class="Enemy" x_position="100" y_position="120" />
+  <GameObject class="turret" x_position="200" y_position="120"/>
+</Root>

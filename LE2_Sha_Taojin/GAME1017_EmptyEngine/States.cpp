@@ -1,11 +1,19 @@
 #include <iostream>
 #include "States.h"
+
+#include <string>
+#include <vector>
+#include "tinyxml2.h"
+
+#include "CollisionManager.h"
 #include "StateManager.h"
 #include "EventManager.h"
 #include "TextureManager.h"
 #include "Engine.h"
 // Include tinyxml2.h
+using namespace tinyxml2;
 using namespace std;
+
 
 void State::Render()
 {
@@ -89,9 +97,35 @@ void GameState::Enter()
 	TEMA::Load("Img/Enemies.png", "enemy");
 	s_enemies.push_back(new Enemy({512, -200, 40, 57}));
 	// Create the DOM and load the XML file.
+	XMLDocument xmlDoc;
+	xmlDoc.LoadFile("SavedObjects.xml");
+	XMLNode* pRoot = xmlDoc.FirstChildElement("Root");
 	// Iterate through the Turret elements in the file and push_back new Turrets into the m_turrets vector.
+	XMLElement* pElement = pRoot->FirstChildElement("GameObject");
+	while (pElement != nullptr)
+	{
+		if (strcmp(pElement->Attribute("class"), "Enemy") == 0)
+		{
+			int x, y;
+			pElement->QueryIntAttribute("x_position", &x);
+			pElement->QueryIntAttribute("y_position", &y);
+			s_enemies.push_back(new Enemy({ x ,y ,40,57 }));
+			cout << x << y << endl;
+		}
+		else if (strcmp(pElement->Attribute("class"), "turret") == 0)
+		{
+			int x,y;
+			pElement->QueryIntAttribute("x_position", &x);
+			pElement->QueryIntAttribute("y_position", &y);
+			m_turrets.push_back(new Turret({ x ,y,100,100 }));
+			cout << x << y << endl;
+		}
+		pElement = pElement->NextSiblingElement("GameObject");
+	}
 		// Look at the last two examples from Week 3
+	//system("pause");
 }
+
 
 void GameState::Update()
 {
@@ -115,6 +149,11 @@ void GameState::Update()
 		s_enemies[i]->Update();
 	for (unsigned i = 0; i < s_bullets.size(); i++)
 		s_bullets[i]->Update();
+
+	
+
+
+	
 
 	// Cleanup bullets and enemies that go off screen.
 
@@ -183,3 +222,4 @@ void GameState::Resume()
 // This is how static properties are allocated.
 std::vector<Bullet*> GameState::s_bullets;
 std::vector<Enemy*> GameState::s_enemies;
+
