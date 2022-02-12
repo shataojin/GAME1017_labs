@@ -186,6 +186,28 @@ void GameState::Update()
 	}
 
 
+	for (unsigned i = 0; i < s_enemies.size(); i++)
+	{
+		SDL_Rect ePos = s_enemies[i]->m_src;
+		for (unsigned i = 0; i < s_bullets.size(); i++)
+		{
+			SDL_FRect bPos = s_bullets[i]->m_dst;
+
+			if(COMA::AABBCheck(ePos,bPos))
+			{
+				delete s_enemies[i];
+				s_enemies[i] = nullptr;
+				s_enemies[i] = (new Enemy({ rand() % (1024 - 40), -57, 40, 57 }));
+				delete s_bullets[i];
+				s_bullets[i] = nullptr;
+				s_bullets[i] = (new Bullet({ -10,-10,(float)4, (float)4 }, 0, 0));
+				cout << "you killed one enemy!!!!" << endl;
+
+			}
+		}
+	}
+
+	
 
 
 	

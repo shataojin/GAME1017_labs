@@ -7,11 +7,12 @@
 class Enemy
 {
 private:
-	SDL_Rect m_src, m_dst;
+	
 	int m_speed;
 	int m_hits; // Maybe after 4 hits, the enemy is destroyed.
 
 public:
+	SDL_Rect m_src, m_dst;
 	Enemy(SDL_Rect dst);
 	void Update();
 	void Render();
