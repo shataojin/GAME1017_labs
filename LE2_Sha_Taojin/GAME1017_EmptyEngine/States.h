@@ -55,8 +55,12 @@ public: // Public methods.
 	virtual void Render();
 	virtual void Exit();
 	virtual void Resume();
+	virtual void CheckCollision();
 	static std::vector<Bullet*>& Bullets() { return s_bullets; }
 	static std::vector<Enemy*>& Enemies() { return s_enemies; }
+
+	int m_iESpawn, 
+		m_iESpawnMax;
 
 };
 #endif

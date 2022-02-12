@@ -150,20 +150,113 @@ void GameState::Update()
 	for (unsigned i = 0; i < m_turrets.size(); i++)
 		m_turrets[i]->Update();
 	for (unsigned i = 0; i < s_enemies.size(); i++)
-	{
 		s_enemies[i]->Update();
-		cout << "numbers of enemies " << i << endl;
-	}
 	for (unsigned i = 0; i < s_bullets.size(); i++)
 		s_bullets[i]->Update();
 
-	
+
+
 
 	
+	/*for (unsigned i = 0; i < s_enemies.size(); i++)
+	{
+		for (unsigned i = 0; i < s_bullets.size(); i++)
+		{
+			if (COMA::CircleAABBCheck(s_enemies, s_bullets))
+			{
+				
+			}
+		}
+	}*/
+
+
 
 
 	
 
+	//for (unsigned i = 0; i < s_enemies.size(); i++)
+	//{
+	//	SDL_Point ePos = Enemies()[i]->GetPos();
+	//	for (unsigned i = 0; i < m_turrets.size(); i++)
+	//	{
+	//		SDL_Point bPos = m_turrets[i]->Update().dx;
+	//		for (unsigned i = 0; i < s_bullets.size(); i++)
+	//		{
+	//			if (COMA::CircleAABBCheck(ePos, s_bullets[i]))
+	//			{
+
+	//			}
+	//	}
+	//}
+	//}
+
+
+	
+	/*for (unsigned i = 0; i < s_enemies.size(); i++)
+	{
+		cout << "y" << s_enemies[i]->GetPos().y << endl;
+	}*/
+
+	/*for (unsigned i = 0; i < m_turrets.size(); i++)
+	{
+		cout << "y" << m_turrets[i]->GetPos().y << endl;
+		cout << "x" << m_turrets[i]->GetPos().x << endl;
+	}*/
+
+	
+	
+	//for (unsigned i = 0; i < s_enemies.size(); i++)
+	//{
+	//	if (s_enemies[i]->GetPos().y > HEIGHT *2)
+	//	{
+	//		cout << "y"<<s_enemies[i]->GetPos().y << endl;
+	//		//delete s_enemies[i];
+	//		//s_enemies[i] = nullptr;
+	//	}
+	//}
+
+	//for (unsigned i = 0; i < s_enemies.size(); i++)
+	//{
+	//	SDL_Rect e = { s_enemies[i]->GetPos().x, s_enemies[i]->GetPos().y,40,57 };
+	//	for (unsigned i = 0; i < s_bullets.size(); i++)
+	//	{
+	//		
+	//	}
+	//}
+
+	//cout << "numbers of enemies " << i << endl;
+	//if (s_enemies[i]->GetPos().x > WIDTH || s_enemies[i]->GetPos().x < WIDTH)
+	//{
+	//	cout << s_enemies[i]->GetPos().x << endl;
+	//	delete s_enemies[i];
+	//	s_enemies[i] = nullptr;
+	//	break;
+	//}
+
+	
+	//for (int i = 0; i < s_bullets.size(); i++)
+	//{
+	//	// WIDTH 1024
+	//	// HEIGHT 768
+	//	if (s_bullets[i]->Bullet::m_dst > 1024 ||)
+	//	{
+	//}
+
+
+
+	/*
+	for (unsigned i = 0; i < s_enemies.size(); i++)
+	{
+		for (unsigned i = 0; i < s_bullets.size(); i++) {
+
+			if (COMA::AABBCheck(s_enemies[i], s_bullets[i])) {
+				delete s_enemies[i];
+				s_enemies[i] = nullptr;
+				delete s_bullets[i];
+				s_bullets[i] = nullptr;
+			}
+		}
+	}*/
 	// Cleanup bullets and enemies that go off screen.
 
 		// for all bullets
@@ -178,7 +271,20 @@ void GameState::Update()
 		// for all bullets
 			// for all enemies
 				// check collision
+
+
+	
 }
+
+void GameState::CheckCollision()
+{
+	/*,for (unsigned i = 0; i < s_enemies.size(); i++)
+	{
+		if()
+	}*/
+		
+}
+
 
 void GameState::Render()
 {
