@@ -159,13 +159,30 @@ void GameState::Update()
 			delete s_enemies[i];
 			s_enemies[i] = nullptr;
 			s_enemies[i]=(new Enemy({ rand() % (1024 - 40), -57, 40, 57 }));
-			cout << ePos.y << endl;
+			//cout << ePos.y << endl;
 		}
 	}
-	for (unsigned i = 0; i < s_bullets.size(); i++)
+
+	for (unsigned i = 0; i < s_enemies.size(); i++)
 	{
-		s_bullets[i]->Update();
-		//SDL_Point bPos = s_bullets[i];
+		SDL_Point ePos = s_enemies[i]->GetPos();
+	for (unsigned i = 0; i < m_turrets.size(); i++) 
+	{
+		SDL_Point tPos = m_turrets[i]->GetPos();
+		for (unsigned i = 0; i < s_bullets.size(); i++)
+		{
+			SDL_Point cPos = GameState::Enemies()[0]->GetPos();
+			s_bullets[i]->Update();
+			SDL_FRect bPos = s_bullets[i]->m_dst;
+			if (bPos.x > WIDTH || bPos.x < 0 || bPos.y > HEIGHT || bPos.y < 0)
+			{
+				delete s_bullets[i];
+				s_bullets[i] = nullptr;
+				s_bullets[i]=(new Bullet({ -10,-10,(float)4, (float)4 },0 ,0 ));
+			}
+		}
+			//cout << bPos .x<< endl;
+		}
 	}
 
 
