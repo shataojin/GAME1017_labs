@@ -104,7 +104,7 @@ void GameState::Enter()
 	XMLElement* pElement = pRoot->FirstChildElement("GameObject");
 	while (pElement != nullptr)
 	{
-		if (strcmp(pElement->Attribute("class"), "Enemy") == 0)
+		if (strcmp(pElement->Attribute("class"), "enemies") == 0)
 		{
 			int x, y;
 			pElement->QueryIntAttribute("x_position", &x);
@@ -122,6 +122,7 @@ void GameState::Enter()
 		}
 		pElement = pElement->NextSiblingElement("GameObject");
 	}
+	
 		// Look at the last two examples from Week 3
 	//system("pause");
 }
@@ -143,12 +144,20 @@ void GameState::Update()
 	}
 	if (m_spawnCtr++ % 180 == 0)
 		s_enemies.push_back(new Enemy({ rand() % (1024 - 40), -57, 40, 57 }));
+
+
+	
 	for (unsigned i = 0; i < m_turrets.size(); i++)
 		m_turrets[i]->Update();
 	for (unsigned i = 0; i < s_enemies.size(); i++)
+	{
 		s_enemies[i]->Update();
+		cout << "numbers of enemies " << i << endl;
+	}
 	for (unsigned i = 0; i < s_bullets.size(); i++)
 		s_bullets[i]->Update();
+
+	
 
 	
 
@@ -197,6 +206,43 @@ void GameState::Exit()
 	// You can clear all children of the root node by calling .DeleteChildren(); and this will essentially clear the DOM.
 	// Iterate through all the turrets and save their positions as child elements of the root node in the DOM.
 	// Make sure to save to the XML file.
+
+	XMLDocument xmlDoc;
+	//DeleteChildren
+	xmlDoc.DeleteChildren();
+	// Create and insert a Root element.
+	XMLNode* pRoot = xmlDoc.NewElement("Root");
+	xmlDoc.InsertEndChild(pRoot);
+	
+	for (unsigned i = 0; i < m_turrets.size(); i++)
+	{
+		
+		/*m_turrets[i]->GetPos().x;
+		m_turrets[i]->GetPos().y;*/
+		
+		XMLElement* pElement = xmlDoc.NewElement("GameObject");
+		pElement->SetAttribute("class", "turret");
+		pElement->SetAttribute("x_position", m_turrets[i]->GetPos().x);
+		pElement->SetAttribute("y_position", m_turrets[i]->GetPos().y);
+		pRoot->InsertEndChild(pElement);
+		xmlDoc.SaveFile("SavedObjects.xml");
+	}
+
+	for (unsigned i = 0; i < s_enemies.size(); i++)
+	{
+
+		/*m_turrets[i]->GetPos().x;
+		m_turrets[i]->GetPos().y;*/
+
+		XMLElement* pElement = xmlDoc.NewElement("GameObject");
+		pElement->SetAttribute("class", "enemies");
+		pElement->SetAttribute("x_position", s_enemies[i]->GetPos().x);
+		pElement->SetAttribute("y_position", s_enemies[i]->GetPos().y);
+		pRoot->InsertEndChild(pElement);
+		xmlDoc.SaveFile("SavedObjects.xml");
+	}
+
+	
 	ClearTurrets();
 	for (unsigned i = 0; i < s_enemies.size(); i++)
 	{
@@ -212,6 +258,7 @@ void GameState::Exit()
 	}
 	s_bullets.clear();
 	s_bullets.shrink_to_fit();
+
 }
 
 void GameState::Resume()
