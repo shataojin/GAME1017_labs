@@ -9,10 +9,10 @@ class State // This is the abstract base class for all states
 {
 public:
 	virtual void Enter() = 0; // = 0 means pure virtual - must be defined in subclass
-	virtual void Update() = 0; 
+	virtual void Update() = 0;
 	virtual void Render();
 	virtual void Exit() = 0;
-	virtual void Resume(); 
+	virtual void Resume();
 	virtual ~State() {} // or = default;
 	GameObject* GetGo(const std::string& s);
 	auto GetIt(const std::string& s);

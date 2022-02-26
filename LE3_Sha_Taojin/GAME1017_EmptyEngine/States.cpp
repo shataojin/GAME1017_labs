@@ -17,16 +17,16 @@ void State::Render()
 	SDL_RenderPresent(Engine::Instance().GetRenderer());
 }
 
-void State::Resume(){}
+void State::Resume() {}
 
 GameObject* State::GetGo(const std::string& s)
 { // Using 'std' just to show origin.
-	auto it = std::find_if(m_objects.begin(), m_objects.end(), 
+	auto it = std::find_if(m_objects.begin(), m_objects.end(),
 		// Lambda expression/function. An in-function function.
 		[&](const std::pair<std::string, GameObject*>& element)
 		{
 			return element.first == s;
-		} 
+		}
 	); // End of find_if.
 	if (it != m_objects.end())
 		return it->second;
@@ -34,7 +34,7 @@ GameObject* State::GetGo(const std::string& s)
 }
 
 auto State::GetIt(const std::string& s)
-{ 
+{
 	auto it = std::find_if(m_objects.begin(), m_objects.end(),
 		[&](const std::pair<std::string, GameObject*>& element)
 		{
@@ -44,7 +44,7 @@ auto State::GetIt(const std::string& s)
 }
 
 // Begin TitleState
-TitleState::TitleState(){}
+TitleState::TitleState() {}
 
 void TitleState::Enter()
 {
@@ -97,7 +97,7 @@ void TitleState::Exit()
 // End TitleState
 
 // Begin GameState
-GameState::GameState(){}
+GameState::GameState() {}
 
 void GameState::Enter() // Used for initialization.
 {
@@ -132,10 +132,9 @@ void GameState::Update()
 		i.second->Update();
 		if (STMA::StateChanging()) return; // Not needed currently, because no buttons that trigger state change.
 	}
-	// Check collision. Player vs. asteroids.
+	// Check collision. 
 	if (GetGo("ship") != nullptr)
 	{
-		// BUT OUR CODE IS IN ANOTHER CASTLE!
 	}
 }
 
@@ -145,7 +144,7 @@ void GameState::Render()
 	SDL_RenderClear(Engine::Instance().GetRenderer());
 	for (auto const& i : m_objects)
 		i.second->Render();
-	if ( dynamic_cast<GameState*>(STMA::GetStates().back()) ) // Check to see if current state is of type GameState
+	if (dynamic_cast<GameState*>(STMA::GetStates().back())) // Check to see if current state is of type GameState
 		State::Render();
 }
 
@@ -166,5 +165,5 @@ void GameState::Exit()
 	}
 }
 
-void GameState::Resume(){}
+void GameState::Resume() {}
 // End GameState
