@@ -111,7 +111,7 @@ void GameState::Enter() // Used for initialization.
 	m_objects.push_back(pair<string, GameObject*>("bg",
 		new Image({ 0, 0, 1024, 768 }, { 0, 0, 1024, 768 }, "bg")));
 	m_objects.push_back(pair<string, GameObject*>("astf",
-		new AsteroidField(2)));
+		new AsteroidField(4)));
 	m_objects.push_back(pair<string, GameObject*>("ship",
 		new ShipAsteroids({ 0, 0, 100, 100 }, { 462.0f, 334.0f, 100.0f, 100.0f })));
 	SOMA::SetSoundVolume(16);
@@ -122,6 +122,7 @@ void GameState::Enter() // Used for initialization.
 
 void GameState::Update()
 {
+
 	if (EVMA::KeyPressed(SDL_SCANCODE_X))
 	{
 		STMA::ChangeState(new TitleState());
@@ -138,6 +139,7 @@ void GameState::Update()
 		// Creating some temporary fields (all as pointers for consistency) for convenience.
 		vector<Asteroid*>* field = &static_cast<AsteroidField*>(GetGo("astf"))->GetAsteroids();
 		ShipAsteroids* ship = static_cast<ShipAsteroids*>(GetGo("ship"));
+		vector<Asteroid*>* fieldSmall = &static_cast<AsteroidFieldxx*>(GetGo("astf"))->GetAsteroids();
 		// Player vs. asteroids first.
 		for (unsigned int i = 0; i < field->size(); i++)
 		{
@@ -154,6 +156,7 @@ void GameState::Update()
 		}
 		// Bullets vs. asteroids. With temp fields for bullets.
 		vector<Bullet*>* bullets = &ship->GetBullets();
+
 		for (unsigned int i = 0; i < bullets->size(); i++)
 		{
 			Bullet* bul = bullets->at(i);
@@ -164,11 +167,21 @@ void GameState::Update()
 					bul->GetRadius(), ast->GetRadius()))
 				{
 					SOMA::PlaySound("explode");
-					// New asteroid chunk spawn code. Hints:
 
-					// You would only need to spawn two chunks if the asteroid that is hit is full size or one smaller than full.
-					// As yourself why the bullet and asteroid that are colliding are only getting destroyed AFTER the two chunks spawn.
-					// What data can you get from the bullet and asteroid that the chunks need?
+					//add new 2 obj
+
+
+					m_objects.push_back(pair<string, GameObject*>("astf",
+						new AsteroidFieldxx(2)));
+					for (unsigned int x = 0; x < fieldSmall->size(); x++)
+					{
+						Asteroid* asts = fieldSmall->at(x);
+						if (COMA::CircleCircleCheck(bul->GetCenter(), asts->GetCenter(),
+							bul->GetRadius(), asts->GetRadius()))
+						{
+							SOMA::PlaySound("explode");
+						}
+					}
 
 					// End new chunk spawn code.
 					delete bul;
@@ -177,12 +190,51 @@ void GameState::Update()
 					delete ast;
 					field->erase(field->begin() + j);
 					field->shrink_to_fit();
-					return;
+					//return;
 				}
 			}
 		}
 	}
 }
+
+
+/*m_objects.push_back(pair<string, GameObject*>("astfS", new AsteroidFieldSmall(2)));*/
+
+
+
+						//m_objects.push_back(pair<string, GameObject*>("astfS",
+						//	new AsteroidField(10)));
+						//for (unsigned i = 0; i < 3; i++) 
+						//{
+						//	Asteroid* astS = fieldSmall->at(i);
+						//	fieldSmall->at(i) = new Asteroid({ 539, 0, 61, 66 },
+						//		{ ast->GetCenter().x,ast->GetCenter().y,
+						//		30.5f, 33.0f });
+						//}
+
+
+
+
+						//add small asteroid
+						/*m_objects.push_back(pair<string, GameObject*>("astfS",
+							new AsteroidField(2)));
+						vector<Asteroid*>* fieldSmall = &static_cast<AsteroidField*>(GetGo("astfS"))->GetAsteroids();
+						for (unsigned int k = 0; k < fieldSmall->size(); k++)
+						{
+							Asteroid* astS = fieldSmall->at(k);
+							fieldSmall->at(k) = new Asteroid({ 539, 0, 61, 66 },
+								{ ast->GetCenter().x,ast->GetCenter().y,
+								30.5f, 33.0f });
+						}*/
+
+
+
+
+						// New asteroid chunk spawn code. Hints:
+
+						// You would only need to spawn two chunks if the asteroid that is hit is full size or one smaller than full.
+						// As yourself why the bullet and asteroid that are colliding are only getting destroyed AFTER the two chunks spawn.
+						// What data can you get from the bullet and asteroid that the chunks need?
 
 void GameState::Render()
 {

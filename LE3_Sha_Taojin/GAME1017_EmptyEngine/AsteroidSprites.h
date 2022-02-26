@@ -27,7 +27,7 @@ private:
 class AsteroidField : public GameObject
 { // Manager class for the individual asteroids.
 public:
-	AsteroidField(unsigned int sz = 6);
+	AsteroidField(unsigned int sz = 50);
 	~AsteroidField();
 	void Update();
 	void Render();
@@ -37,6 +37,49 @@ private:
 	vector<Asteroid*> m_asteroids;
 	int m_size;
 };
+
+
+
+
+
+
+class Asteroidxx : public SpriteObject
+{
+public:
+	Asteroidxx(SDL_Rect s, SDL_FRect d);
+	void Update();
+	void Render();
+	const SDL_FPoint& GetCenter() { return m_center; }
+	const double& GetRadius() { return m_radius; }
+	void SetColMods(Uint8 r, Uint8 g, Uint8 b);
+private:
+	SDL_FPoint m_center;
+	double m_angle,
+		m_dx, m_dy,
+		m_radius,
+		m_rotSpeed;
+	Uint8 m_rMod, m_gMod, m_bMod;
+};
+
+class AsteroidFieldxx : public GameObject
+{ // Manager class for the individual asteroids.
+public:
+	AsteroidFieldxx(unsigned int sz = 50);
+	~AsteroidFieldxx();
+	void Update();
+	void Render();
+	vector<Asteroid*>& GetAsteroids() { return m_asteroids; }
+	const unsigned int GetSize() { return m_size; }
+private:
+	vector<Asteroid*> m_asteroids;
+	int m_size;
+};
+
+
+
+
+
+
 
 class Bullet : public SpriteObject
 {
