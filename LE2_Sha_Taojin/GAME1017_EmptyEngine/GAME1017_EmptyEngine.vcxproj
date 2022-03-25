@@ -167,11 +167,11 @@
     <ClInclude Include="Turret.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Img\Enemies.png" />
-    <Image Include="Img\Turret.png" />
+    <Xml Include="SavedObjects.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="SavedObjects.xml" />
+    <Image Include="Img\Enemies.png" />
+    <Image Include="Img\Turret.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

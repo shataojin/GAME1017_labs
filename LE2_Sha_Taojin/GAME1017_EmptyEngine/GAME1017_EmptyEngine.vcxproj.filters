@@ -88,16 +88,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Img\Turret.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Img\Enemies.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="SavedObjects.xml">
       <Filter>Resource Files</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Img\Enemies.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Img\Turret.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
