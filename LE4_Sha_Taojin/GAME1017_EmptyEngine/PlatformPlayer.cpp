@@ -8,7 +8,7 @@ m_state(STATE_JUMPING), m_grounded(false), m_facingLeft(false), m_maxVelX(10.0),
 m_maxVelY(JUMPFORCE), m_grav(GRAV), m_drag(0.8)
 {
 	m_accelX = m_accelY = m_velX = m_velY = 0.0;
-	//SetAnimation(1, 8, 9); // Initialize jump animation.
+	SetAnimation(1, 8, 9); // Initialize jump animation.
 }
 
 void PlatformPlayer::Update()
@@ -21,7 +21,7 @@ void PlatformPlayer::Update()
 		if (EVMA::KeyPressed(SDL_SCANCODE_A) || EVMA::KeyPressed(SDL_SCANCODE_D))
 		{
 			m_state = STATE_RUNNING;
-			//SetAnimation(3, 0, 8, 256); // , 256
+			SetAnimation(3, 0, 8, 256); // , 256
 		}
 		// Transition to jump.
 		else if (EVMA::KeyPressed(SDL_SCANCODE_SPACE) && m_grounded)
@@ -29,7 +29,7 @@ void PlatformPlayer::Update()
 			m_accelY = -JUMPFORCE; // SetAccelY(-JUMPFORCE);
 			m_grounded = false; // SetGrounded(false);
 			m_state = STATE_JUMPING;
-			//SetAnimation(1, 8, 9, 256);
+			SetAnimation(1, 8, 9, 256);
 		}
 		break;
 	case STATE_RUNNING:
@@ -52,13 +52,13 @@ void PlatformPlayer::Update()
 			m_accelY = -JUMPFORCE;
 			m_grounded = false;
 			m_state = STATE_JUMPING;
-			//SetAnimation(1, 8, 9, 256);
+			SetAnimation(1, 8, 9, 256);
 		}
 		// Transition to idle.
 		if (!EVMA::KeyHeld(SDL_SCANCODE_A) && !EVMA::KeyHeld(SDL_SCANCODE_D))
 		{
 			m_state = STATE_IDLING;
-			//SetAnimation(1, 0, 1, 256); // , 256
+			SetAnimation(1, 0, 1, 256); // , 256
 		}
 		break;
 	case STATE_JUMPING:
@@ -79,7 +79,7 @@ void PlatformPlayer::Update()
 		if (m_grounded)
 		{
 			m_state = STATE_RUNNING;
-			//SetAnimation(3, 0, 8, 256);
+			SetAnimation(3, 0, 8, 256);
 		}
 		break;
 	}
@@ -95,15 +95,15 @@ void PlatformPlayer::Update()
 
 	m_accelX = m_accelY = 0.0; // Resetting accel every frame.
 	// Invoke the animation.
-	//Animate();
+	Animate();
 }
 
 void PlatformPlayer::Render()
 {
-	/*SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture("player"),
-		&m_src, &m_dst, 0.0, NULL, (m_facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));*/
-	SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 255, 0, 0, 255);
-	SDL_RenderFillRectF(Engine::Instance().GetRenderer(), &m_dst);
+	SDL_RenderCopyExF(Engine::Instance().GetRenderer(), TEMA::GetTexture("player"),
+		&m_src, &m_dst, 0.0, NULL, SDL_FLIP_NONE);
+	/*SDL_SetRenderDrawColor(Engine::Instance().GetRenderer(), 255, 0, 0, 255);
+	SDL_RenderFillRectF(Engine::Instance().GetRenderer(), &m_dst);*/
 }
 
 void PlatformPlayer::Stop()
